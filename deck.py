@@ -42,5 +42,7 @@ class Deck():
         return tmp + f"total cards left: {self.get_cards_left()}"
 
 
-tmp = Deck("test")
+tmp = Deck("standard")
+print(tmp)
+tmp.draw_card()
 print(tmp)

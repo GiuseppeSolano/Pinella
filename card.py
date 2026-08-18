@@ -13,7 +13,20 @@ class Card:
         self.back = back
 
     def __str__(self):
-        return f"{self.rank} of {self.suit} (back: {self.back})"
+        if self.rank == 1:
+            rank = " A"
+        elif self.rank == 11:
+            rank = " J"
+        elif self.rank == 12:
+            rank = " Q"
+        elif self.rank == 13:
+            rank = " K"
+        elif self.rank == 10:
+            rank = "10"
+        else:
+            rank = " " + str(self.rank)
+
+        return f"{rank} of {self.suit} (back: {self.back})"
 
 
 """
