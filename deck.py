@@ -5,9 +5,9 @@ class Deck():
     def __init__(self, type):
         if type == "empty":
             self.deck = []
-        if type == "test":
+        elif type == "test":
             self.deck = [Card(1,"spades"), Card(2,"spades","blue")]
-        if type == "standard":
+        elif type == "standard":
             self.deck = []
             for i in range(1,14):
                 self.deck.append(Card(i,"spades"))
@@ -16,7 +16,34 @@ class Deck():
             for i in range(1,14):
                 self.deck.append(Card(i,"hearts"))
             for i in range(1,14):
-                self.deck.append(Card(i,"diamons"))
+                self.deck.append(Card(i,"diamonds"))
+
+        elif type == "pinella":
+            self.deck = []
+            for i in range(1,14):
+                self.deck.append(Card(i,"spades","red"))
+            for i in range(1,14):
+                self.deck.append(Card(i,"clubs","red"))
+            self.deck.append(Card(1,"hearts","red"))
+            for i in range(3,14):
+                self.deck.append(Card(i,"hearts","red"))
+            self.deck.append(Card(1,"diamonds","red"))
+            for i in range(3,14):
+                self.deck.append(Card(i,"diamonds","red"))
+            self.deck.append(Card(0,"hearts","red"))
+            self.deck.append(Card(0,"clubs","red"))
+            for i in range(1,14):
+                self.deck.append(Card(i,"spades","blue"))
+            for i in range(1,14):
+                self.deck.append(Card(i,"clubs","blue"))
+            self.deck.append(Card(1,"hearts","blue"))
+            for i in range(3,14):
+                self.deck.append(Card(i,"hearts","blue"))
+            self.deck.append(Card(1,"diamonds","blue"))
+            for i in range(3,14):
+                self.deck.append(Card(i,"diamonds","blue"))
+            self.deck.append(Card(0,"hearts","blue"))
+            self.deck.append(Card(0,"clubs","blue"))
 
     def get_cards_left(self):
         return len(self.deck)
@@ -42,7 +69,5 @@ class Deck():
         return tmp + f"total cards left: {self.get_cards_left()}"
 
 
-tmp = Deck("standard")
-print(tmp)
-tmp.draw_card()
+tmp = Deck("pinella")
 print(tmp)

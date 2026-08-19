@@ -4,7 +4,7 @@ class Card:
     def __init__(self, rank, suit, back="red"):
         if rank < 0 or rank > 14:
             raise ValueError("Rank not in range")
-        if suit not in {"spades", "clubs", "diamons", "hearts"}:
+        if suit not in {"spades", "clubs", "diamonds", "hearts"}:
             raise ValueError("Non valid suit")
         if back not in {"red", "blue"}:
             raise ValueError("Non valid back")
