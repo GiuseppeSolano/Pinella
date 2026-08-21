@@ -6,7 +6,11 @@ class Deck():
         if type == "empty":
             self.deck = []
         elif type == "test":
-            self.deck = [Card(1,"spades"), Card(2,"spades","blue")]
+            self.deck = []
+            for i in range(1,14):
+                self.deck.append(Card(i,"spades"))
+            for i in range(1,14):
+                self.deck.append(Card(i,"hearts"))
         elif type == "standard":
             self.deck = []
             for i in range(1,14):
@@ -63,11 +67,9 @@ class Deck():
         return cards
 
     def __str__(self):
-        tmp = ""
-        for card in self.deck:
-            tmp = tmp + str(card) + "\n"
-        return tmp + f"total cards left: {self.get_cards_left()}"
+        tmp = str(self.deck)
+        return tmp + f"\ntotal cards left: {self.get_cards_left()}"
 
-
+"""
 tmp = Deck("pinella")
-print(tmp)
+print(tmp)"""

@@ -1,5 +1,26 @@
 from enum import Enum
 
+rank_to_string = {0: " ★",
+                  1: " A",
+                  2: " 2",
+                  3: " 3",
+                  4: " 4",
+                  5: " 5",
+                  6: " 6",
+                  7: " 7",
+                  8: " 8",
+                  9: " 9",
+                 10: "10",
+                 11: " J",
+                 12: " Q",
+                 13: " K",}
+suit_to_string = {
+    "spades": "♠",
+    "hearts": "♥",
+    "diamonds": "♦",
+    "clubs": "♣",
+}
+
 class Card:
     def __init__(self, rank, suit, back="red"):
         if rank < 0 or rank > 14:
@@ -13,20 +34,10 @@ class Card:
         self.back = back
 
     def __str__(self):
-        if self.rank == 1:
-            rank = " A"
-        elif self.rank == 11:
-            rank = " J"
-        elif self.rank == 12:
-            rank = " Q"
-        elif self.rank == 13:
-            rank = " K"
-        elif self.rank == 10:
-            rank = "10"
-        else:
-            rank = " " + str(self.rank)
+        return f"{rank_to_string[self.rank]}{suit_to_string[self.suit]}"
 
-        return f"{rank} of {self.suit} (back: {self.back})"
+    def __repr__(self):
+        return f"{rank_to_string[self.rank]}{suit_to_string[self.suit]}"
 
 
 """
