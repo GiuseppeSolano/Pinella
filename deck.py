@@ -66,9 +66,16 @@ class Deck():
             i = i-1
         return cards
 
+    def add_card(self, card):
+        self.deck.append(card)
+    
+
     def __str__(self):
         tmp = str(self.deck)
         return tmp + f"\ntotal cards left: {self.get_cards_left()}"
+
+    def __len__(self):
+        return len(self.deck)
 
 """
 tmp = Deck("pinella")
