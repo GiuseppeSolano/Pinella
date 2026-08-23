@@ -86,6 +86,6 @@ class Master:
             #self.turn = (self.turn+1) % 2
 
 
-
-m = Master("standard")
-m.loop()
+"""
+m = Master("pinella")
+m.loop()"""
