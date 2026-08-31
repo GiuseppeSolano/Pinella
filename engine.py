@@ -1,15 +1,17 @@
 from player import Player
 from deck   import Deck
+from enum import Enum
 
 
-
-class Master:
+class Engine:
     def __init__(self, type):
         self.players  = Player(0,"PEPPE"), Player(1,"AMORE MIO")
         self.type     = type
         self.deck     = Deck(type)
         self.discards = Deck("empty")
         self.turn     = 0
+        self.phase    = 0
+        self.deck.shuffle()
 
     def __str__(self):
         tmp = "== State of the game ==\n"
@@ -29,14 +31,6 @@ class Master:
             tmp.append(self.players[self.turn].hand.pop(pos-1))
         return tmp
 
-    def setup(self):
-        self.deck = Deck(self.type)
-        self.discars = Deck("empty")
-        self.deck.shuffle()
-        self.give_player_cards(0,self.deck.draw_card(13))
-        self.give_player_cards(1,self.deck.draw_card(13))
-
-        #TODO: add different initial turns
     
     def check_win_condition(self):
         if self.players[self.turn].hand == []:
@@ -61,31 +55,6 @@ class Master:
     def apply_move(self, move):
         if move[0] == 0:
             self.discards.add_card(self.remove_player_cards(move[1]))
-
-    def player_turn(self):
-        while True:
-            print(len(self.deck))
-            move = self.players[self.turn].decide_draw_phase()
-            if self.is_valid_draw(move):
-                break
-        self.apply_draw(move)
-        while True:
-            move = self.players[self.turn].decide_lay_down_phase()
-            if self.is_valid_move(move):
-                break
-        self.apply_move(move)
-
-    
-    def loop(self):
-        self.setup()
-        while True:
-            print("== Next turn ==")
-            self.player_turn()
-            if self.check_win_condition():
-                break
-            #self.turn = (self.turn+1) % 2
-
-
 """
 m = Master("pinella")
 m.loop()"""

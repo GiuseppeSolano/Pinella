@@ -22,16 +22,22 @@ suit_to_string = {
 }
 
 class Card:
-    def __init__(self, rank, suit, back="red"):
+    def __init__(self, rank, suit, back_color="red"):
         if rank < 0 or rank > 14:
             raise ValueError("Rank not in range")
         if suit not in {"spades", "clubs", "diamonds", "hearts"}:
             raise ValueError("Non valid suit")
-        if back not in {"red", "blue"}:
-            raise ValueError("Non valid back")
+        if back_color not in {"red", "blue"}:
+            raise ValueError("Non valid back color")
         self.rank = rank
         self.suit = suit
-        self.back = back
+        self.back_color = back_color
+
+    def front(self):
+        return ((self.rank, self.suit))
+
+    def back(self):
+            return (self.back_color)
 
     def __str__(self):
         return f"{rank_to_string[self.rank]}{suit_to_string[self.suit]}"
