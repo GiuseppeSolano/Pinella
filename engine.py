@@ -12,6 +12,8 @@ class Engine:
         self.turn     = 0
         self.phase    = 0
         self.deck.shuffle()
+        self.give_player_cards(0,self.deck.draw_card(1))
+        print(self.players[0])
 
     def __str__(self):
         tmp = "== State of the game ==\n"
@@ -52,9 +54,20 @@ class Engine:
                 return False
         return True
 
+
+
     def apply_move(self, move):
         if move[0] == 0:
             self.discards.add_card(self.remove_player_cards(move[1]))
+
+    def get_deck(self):
+        return self.deck.to_dict()
+
+    
+    def get_player_hand(self, player):
+        return self.players[player].get_hand()
+
+
 """
 m = Master("pinella")
 m.loop()"""

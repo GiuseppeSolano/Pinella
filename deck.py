@@ -49,13 +49,13 @@ class Deck():
             self.cards.append(Card(0,"hearts","blue"))
             self.cards.append(Card(0,"clubs","blue"))
 
-    def get_cards_left(self):
+    def get_num_cards(self):
         return len(self.cards)
 
     def get_back(self):
         if len(self.cards) == 0:
             return ""
-        return self.cards[-1].back()
+        return self.cards[-1].get_back()
 
     def shuffle(self):
         random.shuffle(self.cards)
@@ -63,13 +63,20 @@ class Deck():
     def draw_card(self, quantity=1):
         cards = []
         i = quantity
-        while (i > 0) and (self.get_cards_left() != 0):
+        while (i > 0) and (self.get_num_cards() != 0):
             cards.append(self.cards.pop())
             i = i-1
         return cards
 
     def add_card(self, card):
         self.cards.append(card)
+
+
+    def to_dict(self):
+        return {
+            "back": self.get_back(),
+            "num_cards": self.get_num_cards()
+        }
     
 
     def __str__(self):

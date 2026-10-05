@@ -1,5 +1,3 @@
-from enum import Enum
-
 rank_to_string = {0: " ★",
                   1: " A",
                   2: " 2",
@@ -22,22 +20,29 @@ suit_to_string = {
 }
 
 class Card:
-    def __init__(self, rank, suit, back_color="red"):
+    def __init__(self, rank, suit, back="red"):
         if rank < 0 or rank > 14:
             raise ValueError("Rank not in range")
         if suit not in {"spades", "clubs", "diamonds", "hearts"}:
             raise ValueError("Non valid suit")
-        if back_color not in {"red", "blue"}:
+        if back not in {"red", "blue"}:
             raise ValueError("Non valid back color")
         self.rank = rank
         self.suit = suit
-        self.back_color = back_color
+        self.back = back
 
     def front(self):
         return ((self.rank, self.suit))
 
-    def back(self):
-            return (self.back_color)
+    def get_back(self):
+        return self.back
+
+    def to_dict(self):
+        return {
+            "back": self.back,
+            "rank": self.rank,
+            "suit": self.suit
+        } 
 
     def __str__(self):
         return f"{rank_to_string[self.rank]}{suit_to_string[self.suit]}"
