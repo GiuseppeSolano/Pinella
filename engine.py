@@ -12,7 +12,7 @@ class Engine:
         self.turn     = 0
         self.phase    = 0
         self.deck.shuffle()
-        self.give_player_cards(0,self.deck.draw_card(1))
+        self.give_player_cards(0,self.deck.draw_card(20))
         print(self.players[0])
 
     def __str__(self):

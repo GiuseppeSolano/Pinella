@@ -27,7 +27,7 @@ class Game:
         card_h = 160
         self.rects = {
             "deck": pygame.Rect(10, self.scr_h//2-card_h//2 ,card_w,card_h),
-            "player_hand": pygame.Rect(10, self.scr_h - card_h, self.scr_w - 20, self.scr_h)
+            "player_hand": pygame.Rect(10, self.scr_h - card_h, self.scr_w - 20, card_h)
         }
 
     def load_resources(self):
@@ -87,14 +87,14 @@ class Game:
         self.screen.blit(tmp, rect)
 
 
-    def draw_hand(self, list_cards):
+    def draw_list_cards_large(self, is_face_up, list_cards, rect):
         num_cards = len(list_cards)
         if num_cards==0:
             return
         
         card_w = 116
-        card_h = self.rects["player_hand"].h
-        rect_w = self.rects["player_hand"].w
+        card_h = rect.h
+        rect_w = rect.w
         spacing = 10
 
         while(True):
@@ -102,11 +102,13 @@ class Game:
             if l < rect_w:
                 break
             spacing -= 1
-        xstart = self.rects["player_hand"].x + (rect_w - l)//2
-        y = self.rects["player_hand"].y
+        x = rect.x + (rect_w - l)//2
+        y = rect.y
+        #print(l, rect.w, x)
         for i in range(num_cards):
-            return
-            
+            self.draw_card(list_cards[i],is_face_up, x,y,card_w,card_h)
+            x += (spacing + card_w)
+                        
 
 
     def render(self):
@@ -123,6 +125,8 @@ class Game:
         } 
         self.draw_card(card,True,200,200,112,160)
         """
+
+        self.draw_list_cards_large(True, self.engine.get_player_hand(0),self.rects["player_hand"])
         
         pygame.display.flip()
         

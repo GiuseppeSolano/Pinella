@@ -7,7 +7,7 @@ class Player:
     def get_num_cards(self):
         return len(self.hand)
 
-    def get_cards(self):
+    def get_hand(self):
         return [card.to_dict() for card in self.hand]
 
     def __str__(self):
