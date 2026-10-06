@@ -26,8 +26,9 @@ class Game:
         card_w = 116
         card_h = 160
         self.rects = {
-            "deck": pygame.Rect(10, self.scr_h//2-card_h//2 ,card_w,card_h),
-            "player_hand": pygame.Rect(10, self.scr_h - card_h, self.scr_w - 20, card_h)
+            "deck":          pygame.Rect(10, self.scr_h//2-card_h//2 ,card_w,card_h),
+            "player_hand":   pygame.Rect(10, self.scr_h - card_h -10, self.scr_w - 20, card_h),
+            "opponent_hand": pygame.Rect(10, 10, self.scr_w - 20, card_h)
         }
 
     def load_resources(self):
@@ -38,15 +39,20 @@ class Game:
         card_h = 80
 
         self.res = {
-            "background": background_sur,
-            "back_red":   template.subsurface(pygame.Rect(0,card_h*2,card_w,card_h)),
-            "back_blue":  template.subsurface(pygame.Rect(0,card_h*3,card_w,card_h)),
-            "empty_card": template.subsurface(pygame.Rect(0,       0,card_w,card_h)),
+            "background":  background_sur,
+            "back_red":    template.subsurface(pygame.Rect(0,card_h*2,card_w,card_h)),
+            "back_blue":   template.subsurface(pygame.Rect(0,card_h*3,card_w,card_h)),
+            "empty_card":  template.subsurface(pygame.Rect(0,       0,card_w,card_h)),
         }
 
         for i in range(1,14):
             for j,n in ((0,"hearts"),(1,"spades"),(2,"diamonds"),(3,"clubs")):
                 self.res[(i,n)] = template.subsurface(pygame.Rect(i*card_w,card_h*j,card_w,card_h))
+
+        self.res[(0,"hearts")]   = template.subsurface(pygame.Rect(0,card_h*4,card_w,card_h))
+        self.res[(0,"diamonds")] = template.subsurface(pygame.Rect(0,card_h*4,card_w,card_h))
+        self.res[(0,"spades")]   = template.subsurface(pygame.Rect(0,card_h*5,card_w,card_h))
+        self.res[(0,"clubs")]    = template.subsurface(pygame.Rect(0,card_h*5,card_w,card_h))
 
 
     def event_handler(self):
@@ -127,6 +133,7 @@ class Game:
         """
 
         self.draw_list_cards_large(True, self.engine.get_player_hand(0),self.rects["player_hand"])
+        self.draw_list_cards_large(False, self.engine.get_player_hand(1),self.rects["opponent_hand"])
         
         pygame.display.flip()
         

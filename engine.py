@@ -2,6 +2,16 @@ from player import Player
 from deck   import Deck
 from enum import Enum
 
+"""
+Goal of the game:
+Clear your hand by discarding your last card
+
+Initial set up:
+13 cards per player, the deck and a card on the discard pile
+
+TODO: complete this comment
+
+"""
 
 class Engine:
     def __init__(self, type):
