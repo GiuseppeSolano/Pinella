@@ -31,7 +31,6 @@ class Game:
         }
 
     def load_resources(self):
-
         background_sur = pygame.image.load("res/table.png")
         template = pygame.image.load("res/cards.png")
 
@@ -40,8 +39,9 @@ class Game:
 
         self.res = {
             "background": background_sur,
-            "back_red": template.subsurface(pygame.Rect(0,card_h*2,card_w,card_h)),
-            "back_blue": template.subsurface(pygame.Rect(0,card_h*3,card_w,card_h))
+            "back_red":   template.subsurface(pygame.Rect(0,card_h*2,card_w,card_h)),
+            "back_blue":  template.subsurface(pygame.Rect(0,card_h*3,card_w,card_h)),
+            "empty_card": template.subsurface(pygame.Rect(0,       0,card_w,card_h)),
         }
 
         for i in range(1,14):
@@ -55,7 +55,20 @@ class Game:
             if e.type == QUIT:
                 self.running = False
 
-    def draw_card(self, info, x,y,w,h):
+    def draw_card(self, info, is_face_up, x,y,w,h):        
+        if not is_face_up:
+            back_color = "back_" + info["back"]
+            if back_color not in self.res:
+                tmp = pygame.transform.scale(self.res["empty_card"],(w,h))
+                self.screen.blit(tmp, pygame.Rect(x,y, w,h))
+                return
+
+            tmp = pygame.transform.scale(self.res[back_color],(w,h))
+            self.screen.blit(tmp, pygame.Rect(x,y, w,h))
+            return
+            
+        info = (info["rank"],info["suit"])
+        
         if info not in self.res:
             tmp = pygame.transform.scale(self.res["empty_card"],(w,h))
             self.screen.blit(tmp, pygame.Rect(x,y, w,h))
@@ -63,8 +76,10 @@ class Game:
         
         tmp = pygame.transform.scale(self.res[info],(w,h))
         self.screen.blit(tmp, pygame.Rect(x,y, w,h))
+        return
 
-    def draw_deck(self, color_deck, rect):
+    def draw_deck(self, info, rect):
+        color_deck = info["back"]
         if color_deck=="":
             return
         info = "back_" + color_deck
@@ -76,23 +91,41 @@ class Game:
         num_cards = len(list_cards)
         if num_cards==0:
             return
-        d
-        initial_space = 10
-        pass
+        
+        card_w = 116
+        card_h = self.rects["player_hand"].h
+        rect_w = self.rects["player_hand"].w
+        spacing = 10
+
+        while(True):
+            l = card_w*num_cards + spacing*(num_cards-1)
+            if l < rect_w:
+                break
+            spacing -= 1
+        xstart = self.rects["player_hand"].x + (rect_w - l)//2
+        y = self.rects["player_hand"].y
+        for i in range(num_cards):
+            return
+            
 
 
     def render(self):
         self.screen.blit(self.res["background"], pygame.Rect(0,0,1080,720))
 
         deck_info = self.engine.get_deck()
-        self.draw_deck(deck_info["back"],self.rects["deck"])
+        self.draw_deck(deck_info,self.rects["deck"])
 
-        pygame.display.flip()
         """
-        self.draw_card((6,"hearts"),100,200,112,160)
-        self.draw_deck(self.engine.deck.get_back(),0,0,112,160)
-        pygame.display.flip()
+        card = {
+            "back": "red",
+            "rank": 12,
+            "suit": "diamonds"
+        } 
+        self.draw_card(card,True,200,200,112,160)
         """
+        
+        pygame.display.flip()
+        
 
     def update(self):
         return
