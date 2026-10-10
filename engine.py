@@ -49,13 +49,11 @@ class Engine:
             return True
         return False
 
-    def is_valid_draw(self, move):
-        #il punto è capire dopo se la carte che ha deciso di pescare va bene per il momento pesca sempre dal deck quindi chill, ma si può fare roba più fine tipo escludere tutto ciò che non è 0
+    def is_valid_draw(self):
         return True
 
-    def apply_draw(self, move):
-        if move == 0:
-            self.give_player_cards(self.turn,self.deck.draw_card())
+    def apply_draw(self):
+        self.give_player_cards(self.turn,self.deck.draw_card())
 
     def is_valid_move(self, move):
         if move[0] == 0:
@@ -67,8 +65,15 @@ class Engine:
 
 
     def apply_move(self, move):
-        if move[0] == 0:
-            self.discards.add_card(self.remove_player_cards(move[1]))
+        print("suca0")
+        type = move["type"]
+        if type not in {"draw"}:
+            print("Invalid move")
+            return
+        if type == "draw":
+            if not self.is_valid_draw():
+                print("Cannot draw")
+            self.apply_draw()
 
     def get_deck(self):
         return self.deck.to_dict()

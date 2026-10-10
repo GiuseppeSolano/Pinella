@@ -57,11 +57,20 @@ class Game:
         self.res[(0,"clubs")]    = template.subsurface(pygame.Rect(0,card_h*5,card_w,card_h))
 
     def check_collisions(self, mouse_pos):
+        move = {}
         for k,rect in self.rects.items():
             if rect.collidepoint(mouse_pos):
-                print(k)
-
-
+                if k == "deck":
+                    print("deck clicked")
+                    move = {
+                        "type": "draw"
+                    }
+        if len(move)==0:
+            return
+        self.engine.apply_move(move)
+            
+                
+            
     def event_handler(self):
         for e in pygame.event.get():
             if e.type == MOUSEBUTTONDOWN:
