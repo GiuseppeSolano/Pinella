@@ -1,3 +1,5 @@
+from os import minor
+
 import pygame
 from pygame.locals import *
 import random
@@ -54,10 +56,17 @@ class Game:
         self.res[(0,"spades")]   = template.subsurface(pygame.Rect(0,card_h*5,card_w,card_h))
         self.res[(0,"clubs")]    = template.subsurface(pygame.Rect(0,card_h*5,card_w,card_h))
 
+    def check_collisions(self, mouse_pos):
+        for k,rect in self.rects.items():
+            if rect.collidepoint(mouse_pos):
+                print(k)
+
 
     def event_handler(self):
-        self.mx, self.my = pygame.mouse.get_pos()
         for e in pygame.event.get():
+            if e.type == MOUSEBUTTONDOWN:
+                if e.dict["button"]==1:
+                    self.check_collisions(e.dict["pos"])
             if e.type == QUIT:
                 self.running = False
 
