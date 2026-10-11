@@ -65,7 +65,6 @@ class Engine:
 
 
     def apply_move(self, move):
-        print("suca0")
         type = move["type"]
         if type not in {"draw"}:
             print("Invalid move")

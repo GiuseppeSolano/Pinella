@@ -18,6 +18,7 @@ class Game:
         
         self.screen = pygame.display.set_mode((self.scr_w,self.scr_h))
         self.player = 0
+        self.num_cards_player = 0
 
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("Pinella")
@@ -65,11 +66,13 @@ class Game:
                     move = {
                         "type": "draw"
                     }
+                elif k == "player_hand":
+                    print("hand clicked")
+                    self.select_card(mouse_pos)
         if len(move)==0:
             return
         self.engine.apply_move(move)
-            
-                
+
             
     def event_handler(self):
         for e in pygame.event.get():
@@ -113,6 +116,7 @@ class Game:
 
     def draw_list_cards_large(self, is_face_up, list_cards, rect):
         num_cards = len(list_cards)
+        self.num_cards_player = num_cards
         if num_cards==0:
             return
         
@@ -132,7 +136,7 @@ class Game:
         for i in range(num_cards):
             self.draw_card(list_cards[i],is_face_up, x,y,card_w,card_h)
             x += (spacing + card_w)
-                        
+
 
 
     def render(self):
