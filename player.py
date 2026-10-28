@@ -8,7 +8,8 @@ class Player:
         return len(self.hand)
 
     def get_hand(self):
-        return [card.to_dict() for card in self.hand]
+        return [card.to_dict() | {"selected": sel} for card, sel in self.hand]
+        
 
     def __str__(self):
         tmp = ""

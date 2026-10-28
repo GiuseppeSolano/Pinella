@@ -73,6 +73,9 @@ class Game:
             return
         self.engine.apply_move(move)
 
+    def select_card(self, mouse_pos):
+        pass
+
             
     def event_handler(self):
         for e in pygame.event.get():

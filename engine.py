@@ -22,8 +22,10 @@ class Engine:
         self.turn     = 0
         self.phase    = 0
         self.deck.shuffle()
-        self.give_player_cards(0,self.deck.draw_card(20))
+        self.give_player_cards(0,self.deck.draw_card(13))
+        self.give_player_cards(1,self.deck.draw_card(13))
         print(self.players[0])
+
 
     def __str__(self):
         tmp = "== State of the game ==\n"
@@ -33,8 +35,11 @@ class Engine:
         tmp = tmp + self.players[1].__str__()
         return tmp
 
+
     def give_player_cards(self, player, cards):
+        cards = [(c,0) for c in cards]
         self.players[player].hand = self.players[player].hand + cards
+
 
     def remove_player_cards(self, list_pos):
         list_pos.sort(reverse=True)
@@ -43,11 +48,6 @@ class Engine:
             tmp.append(self.players[self.turn].hand.pop(pos-1))
         return tmp
 
-    
-    def check_win_condition(self):
-        if self.players[self.turn].hand == []:
-            return True
-        return False
 
     def is_valid_draw(self):
         return True
